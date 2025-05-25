@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Select User</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="container">
+    <h1>👥 Select or Add User</h1>
+
+    <select id="userSelect"></select>
+    <br><br>
+    <input type="text" id="newUserInput" placeholder="New user name">
+    <input type="number" id="newUserWeight" placeholder="Weight in kg" min="1">
+    <br><br>
+    <button onclick="addUser()">➕ Add User</button>
+    <button onclick="continueToTracker()">➡️ Continue</button>
+  </div>
+
+  <script>
+    const userSelect = document.getElementById('userSelect');
+    const users = JSON.parse(localStorage.getItem('users')) || {};
+
+    function loadUserOptions() {
+      userSelect.innerHTML = "";
+      for (let user in users) {
+        const option = document.createElement('option');
+        option.value = user;
+        option.textContent = user;
+        userSelect.appendChild(option);
+      }
+    }
+
+    function addUser() {
+      const name = document.getElementById('newUserInput').value.trim();
+      const weight = parseFloat(document.getElementById('newUserWeight').value);
+      if (!name || !weight || weight < 1) {
+        alert('Enter valid name and weight.');
+        return;
+      }
+
+      users[name] = { weight, mlDrunk: 0, lastDate: new Date().toDateString() };
+      localStorage.setItem('users', JSON.stringify(users));
+      userSelect.innerHTML += `<option value="${name}">${name}</option>`;
+      alert(`User "${name}" added.`);
+    }
+
+    function continueToTracker() {
+      const selectedUser = userSelect.value;
+      if (!selectedUser) {
+        alert('Please select a user.');
+        return;
+      }
+      localStorage.setItem('currentUser', selectedUser);
+      window.location.href = 'tracker.html';
+    }
+
+    loadUserOptions();
+  </script>
+</body>
+</html>

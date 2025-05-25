@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Water Tracker</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="container">
+    <h1>💧 Water Tracker</h1>
+    <p id="userDisplay"></p>
+    <p>Daily Goal: <strong><span id="dailyGoalLitres">--</span> L</strong></p>
+
+    <div class="tracker">
+      <p>Total consumed: <strong><span id="mlDrunk">0</span> ml</strong></p>
+      <p>Remaining: <strong><span id="mlRemaining">0</span> ml</strong></p>
+      <progress id="progressBar" value="0" max="100"></progress>
+      <br />
+      <button onclick="addGlass()">+ I drank 250ml</button>
+      <br><br>
+      <button onclick="switchUser()">🔄 Switch User</button>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
